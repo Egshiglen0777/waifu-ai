@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Waifu AI</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Waifu AI</h1>
+        <nav>
+            <a href="https://x.com/aiwaifuonsol" target="_blank">X</a>
+        </nav>
+    </header>
+    <main>
+        <section id="waifu-selection">
+            <h2>Choose Your Waifu</h2>
+            <div class="waifu-options">
+                <button onclick="startChat('waifu1')">Waifu 1</button>
+                <button onclick="startChat('waifu2')">Waifu 2</button>
+                <button onclick="startChat('waifu3')">Waifu 3</button>
+                <button onclick="startChat('waifu4')">Waifu 4</button>
+            </div>
+        </section>
+        <section id="chat-container" style="display: none;">
+            <h2>Chat with <span id="waifu-name"></span></h2>
+            <div id="chat-box"></div>
+            <input type="text" id="user-input" placeholder="Say something...">
+            <button onclick="sendMessage()">Send</button>
+        </section>
+    </main>
+    <script src="script.js"></script>
+</body>
+</html>
