@@ -1,7 +1,3 @@
-import React, { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-
 const waifus = {
   Makima: {
     personality: "Bossy and dominant. Orders men to flirt with her but remains sexy and untouchable.",
@@ -21,59 +17,66 @@ const waifus = {
   }
 };
 
-export default function WaifuChat() {
-  const [selectedWaifu, setSelectedWaifu] = useState(null);
-  const [messages, setMessages] = useState([]);
-  const [input, setInput] = useState("");
+const generateWaifuResponse = (waifu, userInput) => {
+  if (!waifu) return "Pick a waifu first!";
+  
+  const { personality, style } = waifus[waifu];
+  
+  // Generate a spicy response based on the waifu's personality
+  switch (waifu) {
+    case "Makima":
+      return `*Makima smirks* Tsk… You think you can handle me? ${getSpicyMakimaResponse(userInput)}`;
+    case "Hinata":
+      return `*Hinata blushes* Aww, you're so cute~! ${getSpicyHinataResponse(userInput)}`;
+    case "Power":
+      return `*Power grins* Hah! You like me?! ${getSpicyPowerResponse(userInput)}`;
+    case "Nezuko":
+      return `*Nezuko leans closer* Mmm~ I can smell your flustered heart~ ${getSpicyNezukoResponse(userInput)}`;
+    default:
+      return "Hehe~ I see you're trying to flirt with me!";
+  }
+};
 
-  const sendMessage = () => {
-    if (!input.trim()) return;
-    
-    const waifuResponse = generateWaifuResponse(selectedWaifu, input);
-    setMessages([...messages, { text: input, sender: "user" }, { text: waifuResponse, sender: "waifu" }]);
-    setInput("");
-  };
+// Helper functions for spicy responses
+const getSpicyMakimaResponse = (userInput) => {
+  const responses = [
+    "Prove it, pet.",
+    "You’re lucky I’m even entertaining you.",
+    "Kneel, and maybe I’ll consider it.",
+    "You’re bold, but are you bold enough?"
+  ];
+  return responses[Math.floor(Math.random() * responses.length)];
+};
 
-  const generateWaifuResponse = (waifu, userInput) => {
-    if (!waifu) return "Pick a waifu first!";
-    
-    const { personality, style } = waifus[waifu];
-    return `*${waifu} smirks* ${generateFlirtyResponse(waifu)}`;
-  };
+const getSpicyHinataResponse = (userInput) => {
+  const responses = [
+    "Do you always make girls blush like this?",
+    "You’re making my heart race~!",
+    "I could get used to this kind of attention~",
+    "You’re so sweet, it’s almost unfair~!"
+  ];
+  return responses[Math.floor(Math.random() * responses.length)];
+};
 
-  const generateFlirtyResponse = (waifu) => {
-    switch (waifu) {
-      case "Makima":
-        return "Tsk… You think you can handle me? Prove it, pet.";
-      case "Hinata":
-        return "Aww, you're so cute when you text me~! Do you always make girls blush like this?";
-      case "Power":
-        return "Hah! You like me?! Bold of you to assume I won't bite~! Wanna wrestle or kiss? Maybe both!?";
-      case "Nezuko":
-        return "Mmm~ I can just *smell* how flustered you are. Should I tease you more, or have you had enough~?";
-      default:
-        return "Hehe~ I see you're trying to flirt with me!";
-    }
-  };
+const getSpicyPowerResponse = (userInput) => {
+  const responses = [
+    "Wanna wrestle or kiss? Maybe both!?",
+    "I’m not crazy, you’re just boring!",
+    "Let’s cause some chaos together~!",
+    "You’re lucky I’m in a good mood today!"
+  ];
+  return responses[Math.floor(Math.random() * responses.length)];
+};
 
-  return (
-    <div className="p-4 flex flex-col items-center">
-      <h1 className="text-2xl font-bold mb-4">Choose Your Waifu</h1>
-      <div className="flex space-x-4 mb-4">
-        {Object.keys(waifus).map((waifu) => (
-          <Button key={waifu} onClick={() => setSelectedWaifu(waifu)}>{waifu}</Button>
-        ))}
-      </div>
-      {selectedWaifu && <h2 className="text-xl mb-2">Chatting with {selectedWaifu}</h2>}
-      <div className="border p-4 w-96 h-64 overflow-y-auto bg-white rounded-md mb-2">
-        {messages.map((msg, i) => (
-          <p key={i} className={msg.sender === "user" ? "text-right" : "text-left"}>{msg.text}</p>
-        ))}
-      </div>
-      <div className="flex w-96">
-        <Input value={input} onChange={(e) => setInput(e.target.value)} className="flex-1" placeholder="Type a message..." />
-        <Button onClick={sendMessage} className="ml-2">Send</Button>
-      </div>
-    </div>
-  );
-}
+const getSpicyNezukoResponse = (userInput) => {
+  const responses = [
+    "Should I tease you more, or have you had enough~?",
+    "You’re so fun to mess with~!",
+    "I can tell you’re blushing right now~!",
+    "You’re lucky I’m in a playful mood~!"
+  ];
+  return responses[Math.floor(Math.random() * responses.length)];
+};
+
+// Export the function for use in script.js
+window.generateWaifuResponse = generateWaifuResponse;
